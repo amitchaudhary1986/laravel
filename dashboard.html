@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Recruitment Analytics Dashboard</h1>
+    </header>
+    <main>
+        <div id="engagement-metrics" class="dashboard-section">
+            <h2>Section 1: Engagement Metrics</h2>
+            <div class="metric-container interviews-started-completed">
+                <h3>Number of interviews started/completed per day/week/month</h3>
+                <div class="visualization-placeholder">
+                    <p>Bar chart showing Interviews Started vs. Completed.</p>
+                    <pre>
+Started: [|||||     ] 50
+Completed: [||||      ] 40
+                    </pre>
+                </div>
+                <div class="toggles">
+                    <button class="active">Day</button>
+                    <button>Week</button>
+                    <button>Month</button>
+                </div>
+            </div>
+            <div class="metric-container average-interview-time">
+                <h3>Average time taken per interview</h3>
+                <div class="visualization-placeholder">
+                    <p>Line chart illustrating average interview duration over time.</p>
+                    <pre>
+  /\
+ /  \
+/    \----
+                    </pre>
+                </div>
+                <div class="toggles">
+                    <button class="active">Day</button>
+                    <button>Week</button>
+                    <button>Month</button>
+                </div>
+            </div>
+            <div class="metric-container peak-activity-hours-days">
+                <h3>Peak hours/days for activity</h3>
+                <div class="visualization-placeholder">
+                    <p>Heatmap showing activity concentration by hour and day.</p>
+                    <pre>
+Mon [#] [ ] [ ] ...
+Tue [ ] [#] [#] ...
+Wed [#] [#] [ ] ...
+                    </pre>
+                </div>
+                <div class="toggles">
+                    <button class="active">Hourly View</button>
+                    <button>Daily View</button>
+                </div>
+            </div>
+            <div class="metric-container interview-abandonment-rate">
+                <h3>Interview abandonment/drop-off rate</h3>
+                <div class="visualization-placeholder">
+                    <p>Line chart showing interview abandonment rate.</p>
+                    <pre>
+    /\
+---/  \
+                    </pre>
+                </div>
+                <div class="toggles">
+                    <button class="active">Day</button>
+                    <button>Week</button>
+                    <button>Month</button>
+                </div>
+            </div>
+            <div class="metric-container device-browser-platform-stats">
+                <h3>Device/browser/platform usage stats</h3>
+                <div class="visualization-placeholder">
+                    <p>Pie chart for Device Types: Desktop 60%, Mobile 30%, Tablet 10%</p>
+                </div>
+                <div class="toggles">
+                    <button class="active">Last 30 Days</button>
+                    <button>Last Week</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="candidate-overview" class="dashboard-section">
+            <h2>Section 2: Candidate Overview</h2>
+            <div class="metric-container candidate-progress-funnel">
+                <h3>Show how candidates progress through each interview stage</h3>
+                <div class="visualization-placeholder">
+                    <p>Funnel chart:</p>
+                    <pre>
+Invited:    [##########] 1000
+Started:    [#######   ] 700
+Completed:  [#####     ] 500
+Shortlisted:[###       ] 300
+Selected:   [#         ] 100
+                    </pre>
+                </div>
+                <div class="filters">
+                    <label for="funnel-time-filter">Time Period:</label>
+                    <select id="funnel-time-filter" name="funnel-time-filter">
+                        <option value="all">All Time</option>
+                        <option value="last30">Last 30 Days</option>
+                        <option value="last90">Last 90 Days</option>
+                    </select>
+                    <label for="funnel-role-filter">Job Role:</label>
+                    <select id="funnel-role-filter" name="funnel-role-filter">
+                        <option value="all">All Roles</option>
+                        <option value="dev">Developer</option>
+                        <option value="pm">Project Manager</option>
+                    </select>
+                </div>
+            </div>
+            <div class="metric-container drop-off-percentages">
+                <h3>Drop-off percentages at each stage</h3>
+                <div class="visualization-placeholder">
+                    <p>Invited to Started: <strong>30%</strong></p>
+                    <p>Started to Completed: <strong>28.6%</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="candidate-demographics" class="dashboard-section">
+            <h2>Section 3: Candidate Demographics</h2>
+            <div class="metric-container location-heatmap">
+                <h3>Location heatmap</h3>
+                <div class="visualization-placeholder">
+                    <p>Geographical heatmap illustrating candidate density by region.</p>
+                    <img src="https://i.imgur.com/gXqE05C.png" alt="Placeholder heatmap" style="width:100%; max-width:300px; opacity:0.5;">
+                </div>
+                <div class="filters">
+                    <label for="demo-time-filter">Time Period:</label>
+                    <select id="demo-time-filter" name="demo-time-filter">
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="platform-usage-metrics" class="dashboard-section">
+            <h2>Section 4: Platform Usage Metrics</h2>
+            <div class="metric-container most-active-recruiters">
+                <h3>Most active recruiters</h3>
+                <div class="visualization-placeholder">
+                    <p>Table of most active recruiters:</p>
+                    <table>
+                        <thead><tr><th>Recruiter</th><th>Interviews Created</th></tr></thead>
+                        <tbody>
+                            <tr><td>Alice Smith</td><td>90</td></tr>
+                            <tr><td>Bob Johnson</td><td>70</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="toggles">
+                    <label for="recruiter-activity-metric">Activity Metric:</label>
+                    <select id="recruiter-activity-metric" name="recruiter-activity-metric">
+                        <option value="interviews_created">Interviews Created</option>
+                        <option value="candidates_processed">Candidates Processed</option>
+                        <option value="logins">Logins</option>
+                    </select>
+                </div>
+            </div>
+            <div class="metric-container most-used-features-interviews-questions">
+                <h3>Most used features, type of interviews or type of questions use in an interview</h3>
+                <div class="visualization-placeholder">
+                    <p>Bar chart showing usage: AI Scoring (800), Video Analytics (600)</p>
+                </div>
+                 <div class="filters">
+                    <label for="usage-time-filter">Time Period:</label>
+                    <select id="usage-time-filter" name="usage-time-filter">
+                        <option value="last30">Last 30 Days</option>
+                    </select>
+                </div>
+            </div>
+            <div class="metric-container frequency-platform-use">
+                <h3>Frequency of platform use</h3>
+                <div class="visualization-placeholder">
+                    <p>Histogram: 1-2 logins/wk (40%), 3-5 logins/wk (60%)</p>
+                </div>
+                <div class="filters">
+                    <label for="platform-use-role-filter">User Role:</label>
+                    <select id="platform-use-role-filter" name="platform-use-role-filter">
+                        <option value="all">All Roles</option>
+                        <option value="recruiter">Recruiter</option>
+                        <option value="hiring_manager">Hiring Manager</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="feedback-sentiment-analysis" class="dashboard-section">
+            <h2>Section 5: Feedback & Sentiment Analysis</h2>
+            <div class="metric-container keywords-high-low-scoring">
+                <h3>Common keywords or phrases in high/low scoring candidates</h3>
+                <div class="visualization-placeholder">
+                    <p>High-scoring: LEADERSHIP, PROACTIVE</p>
+                    <p>Low-scoring: UNCLEAR, HESITANT</p>
+                </div>
+                <div class="filters">
+                     <label for="feedback-job-role-filter">Job Role:</label>
+                    <select id="feedback-job-role-filter" name="feedback-job-role-filter">
+                        <option value="all">All Roles</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="health-of-platform" class="dashboard-section">
+            <h2>Section 6: Health of the Platform</h2>
+            <div class="metric-container ai-inaccuracy-flags">
+                <h3>Are any employers consistently flagging AI results as inaccurate?</h3>
+                <div class="visualization-placeholder">
+                     <p>Table of AI Inaccuracy Flags:</p>
+                    <table>
+                        <thead><tr><th>Employer</th><th>Flags</th><th>Flag Rate</th></tr></thead>
+                        <tbody>
+                            <tr><td>Innovate Solutions</td><td>15</td><td>5%</td></tr>
+                            <tr><td>FutureWorks Ltd.</td><td>10</td><td>3%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="filters">
+                    <label for="ai-feature-filter">AI Feature:</label>
+                    <select id="ai-feature-filter" name="ai-feature-filter">
+                        <option value="all">All Features</option>
+                        <option value="transcription">Transcription</option>
+                        <option value="sentiment_analysis">Sentiment Analysis</option>
+                        <option value="skill_detection">Skill Detection</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="value-being-delivered" class="dashboard-section">
+            <h2>Section 7: Value Being Delivered</h2>
+            <div class="metric-container interviews-per-employer-to-hire">
+                <h3>How many interviews per employer → success (hire)?</h3>
+                <div class="visualization-placeholder">
+                    <p>Scatter Plot: Alpha Inc. (50 Int, 5 Hires), Beta Services (30 Int, 6 Hires)</p>
+                </div>
+            </div>
+            <div class="metric-container average-time-saved">
+                <h3>Average time saved per employer vs. traditional hiring</h3>
+                <div class="visualization-placeholder">
+                    <p>KPI: Avg. Time Saved: <strong>12 Days</strong></p>
+                </div>
+            </div>
+            <div class="metric-container roi-signals">
+                <h3>ROI signals (usage vs. results)</h3>
+                <div class="visualization-placeholder">
+                    <p>Quadrant Chart: High Usage/High Results (Employer A, Employer B)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="employer-wise-trends" class="dashboard-section">
+            <h2>Section 8: Employer-wise Trends</h2>
+            <div class="metric-container candidate-quality-trends">
+                <h3>Employers with rising or falling candidate quality</h3>
+                <div class="visualization-placeholder">
+                    <p>Line chart for Bright Future Inc (Rising), Old Guard Co. (Falling)</p>
+                </div>
+                 <div class="filters">
+                    <label for="quality-job-role-filter">Job Role:</label>
+                    <select id="quality-job-role-filter" name="quality-job-role-filter">
+                        <option value="all">All Roles</option>
+                    </select>
+                </div>
+            </div>
+            <div class="metric-container rejection-complaint-spikes">
+                <h3>Sudden spikes in rejection reasons, or complaint rates</h3>
+                <div class="visualization-placeholder">
+                    <p>Alert: Employer Y - Rejection "Salary Expectation" +150% WoW</p>
+                </div>
+            </div>
+            <div class="metric-container employer-scoring-review-engagement">
+                <h3>Are some employers not using scoring, or not reviewing results?</h3>
+                <div class="visualization-placeholder">
+                    <p>Table: LowEngage Corp (10% Scored, 5% Reviewed)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="feature-usage" class="dashboard-section">
+            <h2>Section 9: Feature Usage</h2>
+            <div class="metric-container deep-feature-usage-by-employer">
+                <h3>Who is actually using deep interview scoring, video analytics, AI recommendations, etc.?</h3>
+                <div class="visualization-placeholder">
+                    <p>Table: DetailOrient Inc. (Deep Scoring Usage: 45)</p>
+                </div>
+                 <div class="filters">
+                    <label for="deep-feature-filter">Feature:</label>
+                    <select id="deep-feature-filter" name="deep-feature-filter">
+                        <option value="all">All Deep Features</option>
+                        <option value="deep_scoring">Deep Scoring</option>
+                        <option value="video_analytics">Video Analytics</option>
+                    </select>
+                </div>
+            </div>
+            <div class="metric-container underused-features">
+                <h3>Which features are underused — maybe we can retire or improve them</h3>
+                <div class="visualization-placeholder">
+                    <p>List: Advanced Reporting (5% users), Candidate Pool Segmentation (8%)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="system-stability-risk" class="dashboard-section">
+            <h2>Section 10: System Stability & Risk</h2>
+            <div class="metric-container employer-system-issues">
+                <h3>Are any employers facing consistent system issues?</h3>
+                <div class="visualization-placeholder">
+                    <p>Table: Glitchy Systems Ltd (Error Rate: 5%, Reported Issues: 12)</p>
+                </div>
+                 <div class="filters">
+                    <label for="issue-type-filter">Issue Type:</label>
+                    <select id="issue-type-filter" name="issue-type-filter">
+                        <option value="all">All Issue Types</option>
+                        <option value="client_error">Client-Side Errors</option>
+                        <option value="load_time">Load Time Issues</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Recruitment Analytics Platform</p>
+    </footer>
+    <script src="script.js"></script> 
+</body>
+</html>

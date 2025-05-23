@@ -1,0 +1,494 @@
+**Section 1: Engagement Metrics**
+
+*   **Metric:** Daily Active Users (DAU)
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and count on Y-axis.
+    *   **Textual Representation:**
+        ```
+        DAU
+        ^
+        |  /\
+        | /  \
+        |/    \
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact DAU count for a specific point in time.
+
+*   **Metric:** Monthly Active Users (MAU)
+    *   **Visualization:** Line chart with time on X-axis (Month toggle) and count on Y-axis.
+    *   **Textual Representation:**
+        ```
+        MAU
+        ^
+        |  /\
+        | /  \
+        |/    \
+        +------------------> Time (Month)
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact MAU count for a specific month.
+
+*   **Metric:** Session Duration (Average)
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and duration (minutes) on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Avg. Session Duration (min)
+        ^
+        |  ----
+        | /    \
+        |/      ----
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact average session duration for a specific point in time.
+
+*   **Metric:** Bounce Rate
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and percentage on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Bounce Rate (%)
+        ^
+        |    /\
+        |   /  \
+        |/\/    \
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact bounce rate for a specific point in time.
+
+**Section 2: Candidate Overview**
+
+*   **Metric:** Total Candidates
+    *   **Visualization:** Single number display (KPI card).
+    *   **Textual Representation:**
+        ```
+        +-----------------+
+        | Total Candidates|
+        |      15,234     |
+        +-----------------+
+        ```
+    *   **Interactive Elements:** None.
+
+*   **Metric:** New Candidates (Last 30 Days)
+    *   **Visualization:** Single number display (KPI card) with a percentage change from the previous 30 days.
+    *   **Textual Representation:**
+        ```
+        +----------------------+
+        | New Candidates (L30D)|
+        |        567 (+5%)     |
+        +----------------------+
+        ```
+    *   **Interactive Elements:** None.
+
+*   **Metric:** Candidates by Status (e.g., Active, Inactive, Profile Complete, Profile Incomplete)
+    *   **Visualization:** Donut chart or Bar chart.
+    *   **Textual Representation (Donut Chart):**
+        ```
+              ******
+           ***      ***
+         **  Active   **
+        *   (40%)       *
+        * Inactive(20%) *
+         **  Profile  **
+           *** C (25%)***
+              ******
+              P.I (15%)
+        ```
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Active:     [######_40%_######]
+        Inactive:   [###_20%_###]
+        Prof. Comp: [####_25%_####]
+        Prof. Inc:  [##_15%_##]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact count and percentage for each status. Clickable segments/bars to filter a list of candidates (optional).
+
+*   **Metric:** Average Time to Profile Completion
+    *   **Visualization:** Single number display (KPI card).
+    *   **Textual Representation:**
+        ```
+        +-----------------------------+
+        | Avg. Time to Profile Compl. |
+        |         3 days 10 hrs       |
+        +-----------------------------+
+        ```
+    *   **Interactive Elements:** None.
+
+**Section 3: Candidate Demographics**
+
+*   **Metric:** Age Distribution
+    *   **Visualization:** Histogram or Bar chart.
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Age Groups
+        18-24: [#####_30%_#####]
+        25-34: [#######_40%_#######]
+        35-44: [###_20%_###]
+        45+  : [##_10%_##]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact count and percentage for each age group.
+
+*   **Metric:** Gender Distribution
+    *   **Visualization:** Pie chart or Bar chart.
+    *   **Textual Representation (Pie Chart):**
+        ```
+              ******
+           ***      ***
+         **  Male     **
+        *   (48%)       *
+        * Female(50%)   *
+         **  Other   **
+           *** (2%) ***
+              ******
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact count and percentage for each gender.
+
+*   **Metric:** Location Distribution (Top 5-10 Cities/Regions)
+    *   **Visualization:** Bar chart or a map visualization (if feasible).
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Location (Top 5)
+        City A: [########_35%_########]
+        City B: [######_25%_######]
+        City C: [####_20%_####]
+        City D: [###_15%_###]
+        City E: [##_5%_##]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact count and percentage. Clickable bars to drill down further (e.g., view candidates in City A).
+
+*   **Metric:** Education Level Distribution
+    *   **Visualization:** Bar chart.
+    *   **Textual Representation:**
+        ```
+        Education Level
+        High School: [##_10%_##]
+        Bachelor's:  [#######_45%_#######]
+        Master's:    [#####_30%_#####]
+        PhD:         [###_15%_###]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact count and percentage for each education level.
+
+**Section 4: Platform Usage Metrics**
+
+*   **Metric:** Profile Completion Rate
+    *   **Visualization:** Percentage display (KPI card) or a gauge chart.
+    *   **Textual Representation (KPI Card):**
+        ```
+        +-----------------------+
+        | Profile Completion    |
+        |         78%           |
+        +-----------------------+
+        ```
+    *   **Interactive Elements:** None.
+
+*   **Metric:** Number of Connections Made (Candidate-Employer)
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and count on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Connections Made
+        ^
+        |    /\
+        |   /  \
+        |  /    \
+        | /      ----
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact count for a specific point in time.
+
+*   **Metric:** Search Query Volume
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and count on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Search Queries
+        ^
+        |  /\/\
+        | /    \
+        |/      \
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact query volume.
+
+*   **Metric:** Top Searched Keywords/Skills
+    *   **Visualization:** Tag cloud or a horizontal bar chart.
+    *   **Textual Representation (Tag Cloud):**
+        ```
+        Java  Python  React  Node.js  SQL
+           Project Management  AWS  Agile
+        Data Analysis  Spring Boot  Communication
+        ```
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Top Keywords
+        Java:    [##########_500_##########]
+        Python:  [#######_350_#######]
+        React:   [######_300_######]
+        Node.js: [#####_250_#####]
+        SQL:     [####_200_####]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact search count for each keyword.
+
+**Section 5: Feedback & Sentiment Analysis**
+
+*   **Metric:** Average Candidate Satisfaction Score (e.g., CSAT from surveys)
+    *   **Visualization:** Gauge chart or a single number display with trend indicator.
+    *   **Textual Representation (Gauge):**
+        ```
+          .--""--.
+         /        \
+        |   4.2/5  |   (Up from 4.1)
+         \  .--.  /
+          '-....-'
+        ```
+    *   **Interactive Elements:** None.
+
+*   **Metric:** Sentiment Trend (Positive/Negative/Neutral feedback over time)
+    *   **Visualization:** Stacked area chart or grouped line chart with time on X-axis and percentage/count on Y-axis.
+    *   **Textual Representation (Stacked Area):**
+        ```
+        Sentiment Trend
+        ^
+        | ++++++++++ (Positive)
+        | ~~~~~~~~~~ (Neutral)
+        | ---------- (Negative)
+        +------------------> Time (Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Week/Month view. Tooltip on hover to show breakdown for a specific point.
+
+*   **Metric:** Common Themes from Feedback (qualitative)
+    *   **Visualization:** Table or a list of top themes with frequency.
+    *   **Textual Representation (Table):**
+        ```
+        | Theme                      | Frequency | Sentiment |
+        |----------------------------|-----------|-----------|
+        | Easy to use interface      | 120       | Positive  |
+        | More job variety needed    | 85        | Negative  |
+        | Quick profile setup        | 70        | Positive  |
+        | Slow search results        | 45        | Negative  |
+        | Helpful support            | 30        | Positive  |
+        ```
+    *   **Interactive Elements:** Sortable columns. Clickable theme to see example feedback snippets (optional).
+
+**Section 6: Health of the Platform**
+
+*   **Metric:** Uptime Percentage
+    *   **Visualization:** Single number display (KPI card) with a target.
+    *   **Textual Representation:**
+        ```
+        +-----------------------+
+        | Uptime                |
+        |      99.98% (>=99.9%) |
+        +-----------------------+
+        ```
+    *   **Interactive Elements:** None.
+
+*   **Metric:** Average Page Load Time
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and time (seconds) on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Avg. Page Load (s)
+        ^
+        |   ---
+        |  /   \
+        | /     \ ----
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact load time.
+
+*   **Metric:** Error Rate (e.g., 5xx errors)
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and error count/percentage on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Error Rate (%)
+        ^
+        |  _
+        | / \   /\
+        |/   \_/  \
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact error rate.
+
+*   **Metric:** API Call Latency (Average/p95/p99)
+    *   **Visualization:** Grouped line chart with time on X-axis and latency (ms) on Y-axis for Avg, p95, p99.
+    *   **Textual Representation:**
+        ```
+        API Latency (ms)
+        ^
+        |  --- (p99)
+        |   -  (p95)
+        |    - (Avg)
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show values.
+
+**Section 7: Value Being Delivered**
+
+*   **Metric:** Number of Successful Placements (if tracked)
+    *   **Visualization:** Line chart or Bar chart with time on X-axis (Month/Quarter) and count on Y-axis.
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Successful Placements
+        Jan: [###_30_###]
+        Feb: [####_40_####]
+        Mar: [#####_50_#####]
+        ```
+    *   **Interactive Elements:** Toggle for Month/Quarter view. Tooltip on hover for exact count.
+
+*   **Metric:** Time to Hire (Average, if data available from employers)
+    *   **Visualization:** Line chart with time on X-axis (Month/Quarter) and days on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Avg. Time to Hire (days)
+        ^
+        | ----
+        | \  /
+        |  \/
+        +------------------> Time (Month/Quarter)
+        ```
+    *   **Interactive Elements:** Toggle for Month/Quarter view. Tooltip on hover for exact duration.
+
+*   **Metric:** Candidate Application to Interview Ratio
+    *   **Visualization:** Funnel chart or a ratio display.
+    *   **Textual Representation (Funnel):**
+        ```
+        Applications: [##########] 1000
+        Interviews:   [####      ] 400  (40%)
+        ```
+    *   **Textual Representation (Ratio):**
+        ```
+        +-----------------------------+
+        | App-to-Interview Ratio      |
+        |           2.5 : 1           |
+        +-----------------------------+
+        ```
+    *   **Interactive Elements:** Tooltip on hover for exact numbers and conversion rates.
+
+**Section 8: Employer-wise Trends**
+
+*   **Metric:** Number of Active Employers
+    *   **Visualization:** Line chart with time on X-axis (Day/Week/Month toggle) and count on Y-axis.
+    *   **Textual Representation:**
+        ```
+        Active Employers
+        ^
+        |  /\
+        | /  \
+        |/    \
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover for exact count.
+
+*   **Metric:** New Employer Sign-ups
+    *   **Visualization:** Bar chart with time on X-axis (Week/Month) and count on Y-axis.
+    *   **Textual Representation:**
+        ```
+        New Employer Sign-ups
+        W1: [##_10_##]
+        W2: [###_15_###]
+        W3: [##_12_##]
+        W4: [####_18_####]
+        ```
+    *   **Interactive Elements:** Toggle for Week/Month view. Tooltip on hover for exact count.
+
+*   **Metric:** Top Employers by Candidate Engagement (e.g., profile views, applications received)
+    *   **Visualization:** Table or Bar chart.
+    *   **Textual Representation (Table):**
+        ```
+        | Employer          | Profile Views | Applications |
+        |-------------------|---------------|--------------|
+        | Acme Corp         | 1500          | 250          |
+        | Beta Solutions    | 1200          | 180          |
+        | Gamma Tech        | 1000          | 150          |
+        | Delta Industries  | 800           | 120          |
+        | Epsilon Co        | 750           | 100          |
+        ```
+    *   **Interactive Elements:** Sortable columns. Clickable employer name to view detailed employer profile/stats (optional).
+
+**Section 9: Feature Usage**
+
+*   **Metric:** Usage of Key Features (e.g., resume builder, skills assessment, messaging)
+    *   **Visualization:** Bar chart showing usage counts or percentages for different features.
+    *   **Textual Representation:**
+        ```
+        Feature Usage (Last 30 Days)
+        Resume Builder:  [#######_70%_#######] (Users who used it)
+        Skills Assess.:  [#####_50%_#####]
+        Messaging:       [########_80%_########]
+        Job Alerts:      [######_60%_######]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact count/percentage and definition of "usage".
+
+*   **Metric:** Adoption Rate of New Features
+    *   **Visualization:** Line chart showing percentage of active users using a new feature over time since launch.
+    *   **Textual Representation:**
+        ```
+        New Feature X Adoption
+        ^ % Users
+        |     /\
+        |    /  \
+        |   /    \
+        |  /      ----
+        +------------------> Time (Days/Weeks post-launch)
+        ```
+    *   **Interactive Elements:** Dropdown to select different new features. Tooltip on hover for exact percentage.
+
+*   **Metric:** Feature Drop-off Points (e.g., where users abandon a multi-step feature)
+    *   **Visualization:** Funnel chart for specific multi-step features.
+    *   **Textual Representation (Example: Profile Setup Funnel):**
+        ```
+        Step 1 (Basic Info): [##########] 100%
+        Step 2 (Work Exp):   [#######   ] 70%
+        Step 3 (Education):  [#####     ] 50%
+        Step 4 (Skills):     [####      ] 40% (High drop-off here)
+        Profile Complete:    [###       ] 30%
+        ```
+    *   **Interactive Elements:** Dropdown to select different multi-step features. Tooltip on hover for exact numbers and drop-off rates.
+
+**Section 10: System Stability & Risk**
+
+*   **Metric:** Security Incidents / Breaches (Count)
+    *   **Visualization:** Single number display (KPI card), ideally should be 0.
+    *   **Textual Representation:**
+        ```
+        +-----------------------+
+        | Security Incidents    |
+        |          0            |
+        +-----------------------+
+        ```
+    *   **Interactive Elements:** None. Link to detailed incident reports if any.
+
+*   **Metric:** Data Backup Success Rate
+    *   **Visualization:** Single number display (KPI card) or a status indicator (Green/Red).
+    *   **Textual Representation (KPI Card):**
+        ```
+        +-----------------------+
+        | Data Backup Success   |
+        |        100%           |
+        +-----------------------+
+        ```
+    *   **Interactive Elements:** None. Tooltip to show last backup time.
+
+*   **Metric:** Critical Vulnerabilities Identified & Patched
+    *   **Visualization:** Table or two KPI cards (Identified vs. Patched).
+    *   **Textual Representation (Table):**
+        ```
+        | Vulnerability ID | Severity | Status      | Date Identified | Date Patched |
+        |------------------|----------|-------------|-----------------|--------------|
+        | CVE-2023-XXXX    | Critical | Patched     | 2023-10-01      | 2023-10-02   |
+        | CVE-2023-YYYY    | High     | Patched     | 2023-10-05      | 2023-10-07   |
+        | CVE-2023-ZZZZ    | Medium   | Open        | 2023-10-10      | -            |
+        ```
+    *   **Textual Representation (KPI Cards):**
+        ```
+        +-----------------------+  +-----------------------+
+        | Critical Vulns Open   |  | Critical Vulns Patched|
+        |          1            |  |         12 (L90D)     |
+        +-----------------------+  +-----------------------+
+        ```
+    *   **Interactive Elements:** Filter by status/severity. Link to vulnerability details.
+
+*   **Metric:** Compliance Status (e.g., GDPR, CCPA)
+    *   **Visualization:** Status indicator (Compliant / Partially Compliant / Non-Compliant) for each relevant regulation.
+    *   **Textual Representation:**
+        ```
+        Compliance Status:
+        GDPR: [Compliant]
+        CCPA: [Compliant]
+        XYZ:  [Partially Compliant - Action Required]
+        ```
+    *   **Interactive Elements:** Tooltip for details or link to compliance reports.

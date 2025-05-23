@@ -1,0 +1,413 @@
+**Section 1: Engagement Metrics**
+
+*   **Metric:** Number of interviews started/completed per day/week/month
+    *   **Visualization:** Grouped Bar chart or Stacked Bar chart. X-axis: Time (Day/Week/Month). Y-axis: Count. Two bars/segments per time period: one for "Started" and one for "Completed".
+    *   **Textual Representation (Grouped Bar Chart):**
+        ```
+        Interviews Started/Completed
+        Count ^
+              |
+              |  S C   S C   S C
+              |  | |   | |   | |
+              |  | |   | |   | |
+              +--+-+---+-+---+-+--> Time (Day/Week/Month)
+                 D1    D2    D3
+        (S=Started, C=Completed)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact counts for Started and Completed.
+
+*   **Metric:** Average time taken per interview
+    *   **Visualization:** Line chart. X-axis: Time (Day/Week/Month). Y-axis: Average duration (minutes).
+    *   **Textual Representation:**
+        ```
+        Avg. Interview Duration (min)
+        ^
+        |  ----
+        | /    \
+        |/      ----
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact average duration for a specific point in time.
+
+*   **Metric:** Peak hours/days for activity
+    *   **Visualization:** Heatmap or Bar chart. For hours: X-axis: Hour of the day (0-23). Y-axis: Day of the week. Cell color intensity indicates activity level. For days: X-axis: Day of the week. Y-axis: Activity count.
+    *   **Textual Representation (Heatmap - Hours/Days):**
+        ```
+        Peak Activity (Hour of Day vs Day of Week)
+              Mon Tue Wed Thu Fri Sat Sun
+        00-01 [ ] [ ] [#] [ ] [ ] [ ] [ ]
+        01-02 [ ] [#] [ ] [ ] [ ] [ ] [ ]
+        ...
+        09-10 [ ] [ ] [ ] [ ] [ ] [#] [#]
+        10-11 [#] [#] [#] [#] [#] [ ] [ ]
+        (# = High activity, . = Medium,   = Low)
+        ```
+    *   **Textual Representation (Bar Chart - Days):**
+        ```
+        Peak Activity (Days)
+        Mon: [######_600_######]
+        Tue: [#######_700_#######]
+        Wed: [########_800_########]
+        Thu: [#######_750_#######]
+        Fri: [#####_500_#####]
+        Sat: [##_200_##]
+        Sun: [#_100_#]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact activity count/level. Toggle to switch between hourly and daily view if combined.
+
+*   **Metric:** Interview abandonment/drop-off rate
+    *   **Visualization:** Line chart. X-axis: Time (Day/Week/Month). Y-axis: Percentage (%).
+    *   **Textual Representation:**
+        ```
+        Interview Abandonment Rate (%)
+        ^
+        |    /\
+        |   /  \
+        |/\/    \
+        +------------------> Time (Day/Week/Month)
+        ```
+    *   **Interactive Elements:** Toggle for Day/Week/Month view. Tooltip on hover to show exact abandonment rate. This could also be part of a funnel chart (see Section 2).
+
+*   **Metric:** Device/browser/platform usage stats
+    *   **Visualization:** Multiple Pie charts or Bar charts (one for device type, one for browser, one for platform/OS).
+    *   **Textual Representation (Example: Device Type - Pie Chart):**
+        ```
+              ******
+           ***      ***
+         ** Desktop  **
+        *   (60%)       *
+        * Mobile(30%)   *
+         ** Tablet  **
+           *** (10%)***
+              ******
+        ```
+    *   **Textual Representation (Example: Browser - Bar Chart):**
+        ```
+        Browser Usage
+        Chrome:  [########_65%_########]
+        Safari:  [###_20%_###]
+        Firefox: [##_10%_##]
+        Edge:    [#_5%_#]
+        ```
+    *   **Interactive Elements:** Tooltip on hover to show exact percentage and count for each segment/bar. Filters for time period (e.g., Last 30 days, Last Week).
+
+**Section 2: Candidate Overview**
+
+*   **Metric:** Show how candidates progress through each interview stage: Invited → Started → Completed → Shortlisted → Selected
+    *   **Visualization:** Funnel chart. Each stage of the funnel represents a step in the interview process.
+    *   **Textual Representation:**
+        ```
+        Candidate Funnel
+        Invited:    [##########] 1000 (100%)
+        Started:    [#######   ] 700  (70%)
+        Completed:  [#####     ] 500  (50%)
+        Shortlisted:[###       ] 300  (30%)
+        Selected:   [#         ] 100  (10%)
+        ```
+    *   **Interactive Elements:** Tooltip on hover over each stage to show the exact number of candidates and the conversion rate from the previous stage. Filters for time period or specific job roles/departments.
+
+*   **Metric:** Drop-off percentages at each stage
+    *   **Visualization:** This is typically integrated into the Funnel chart itself, showing the percentage decrease between stages. It can also be a separate table or set of KPI cards next to the funnel.
+    *   **Textual Representation (Integrated into Funnel - as above, or separate KPI cards):**
+        ```
+        Drop-off Rates:
+        Invited to Started:    30%
+        Started to Completed:  28.6% (of those who started)
+        Completed to Shortlisted: 40% (of those who completed)
+        Shortlisted to Selected:  66.7% (of those shortlisted)
+        ```
+    *   **Interactive Elements:** Tooltips on the funnel chart showing these percentages. If separate cards, no specific interaction beyond visual.
+
+**Section 3: Candidate Demographics**
+
+*   **Metric:** Location heatmap
+    *   **Visualization:** Geographical heatmap where color intensity represents the concentration of candidates. Could be world map, country map, or regional map depending on data granularity.
+    *   **Textual Representation (Simplified conceptual grid):**
+        ```
+        Candidate Location Heatmap (e.g., USA)
+
+        [ . . . . . . . # . ] West Coast (e.g. CA - High density)
+        [ . . . o . . . . . ] Midwest (e.g. IL - Medium density)
+        [ . . . . . . . . . ]
+        [ . . # . . . o . . ] East Coast (e.g. NY - High, FL - Medium)
+        [ . . . . . . . . . ]
+        ( # = High density, o = Medium, . = Low )
+        ```
+    *   **Interactive Elements:** Zoom in/out on the map. Tooltip on hover over a region to show exact candidate count or density number. Filters for time period, job role, or interview status.
+
+**Section 4: Platform Usage Metrics**
+
+*   **Metric:** Most active recruiters
+    *   **Visualization:** Horizontal Bar chart or Table. Y-axis: Recruiter names. X-axis: Activity count (e.g., interviews created, candidates processed, logins).
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Most Active Recruiters (by Interviews Created)
+        Alice Smith:  [#########_90_#########]
+        Bob Johnson:  [#######_70_#######]
+        Carol White:  [######_60_######]
+        David Lee:    [####_40_####]
+        ```
+    *   **Textual Representation (Table):**
+        ```
+        | Recruiter Name | Interviews Created | Candidates Processed | Logins (L30D) |
+        |----------------|--------------------|----------------------|---------------|
+        | Alice Smith    | 90                 | 250                  | 25            |
+        | Bob Johnson    | 70                 | 200                  | 22            |
+        | Carol White    | 60                 | 180                  | 20            |
+        ```
+    *   **Interactive Elements:** Sortable table columns. Clickable recruiter name to view detailed activity log (optional). Dropdown to change activity metric for sorting/ranking. Time period filter.
+
+*   **Metric:** Most used features, type of interviews or type of questions use in an interview
+    *   **Visualization:** Multiple Bar charts or a grouped bar chart.
+        *   Features: Bar chart (Feature vs. Usage Count/Percentage).
+        *   Interview Types: Bar chart (Interview Type vs. Usage Count).
+        *   Question Types: Bar chart (Question Type vs. Usage Count).
+    *   **Textual Representation (Example: Feature Usage Bar Chart):**
+        ```
+        Most Used Features
+        AI Scoring:      [########_800_########]
+        Video Analytics: [######_600_######]
+        Template Library:[#####_500_#####]
+        Live Coding Env: [####_400_####]
+        ```
+    *   **Textual Representation (Example: Interview Types Bar Chart):**
+        ```
+        Most Used Interview Types
+        Behavioral:   [#########_900_#########]
+        Technical:    [#######_750_#######]
+        Situational:  [#####_550_#####]
+        Panel:        [###_300_###]
+        ```
+    *   **Textual Representation (Example: Question Types Bar Chart):**
+        ```
+        Most Used Question Types (in Interviews)
+        Open-ended:      [########_1200_########]
+        Multiple Choice: [######_900_######]
+        Coding Challenge:[#####_700_#####]
+        Case Study:      [####_600_####]
+        ```
+    *   **Interactive Elements:** Tooltip on hover for exact counts/percentages. Filters for recruiter, department, or time period.
+
+*   **Metric:** Frequency of platform use
+    *   **Visualization:** Histogram or Bar chart showing distribution of users by frequency (e.g., daily active users, weekly active users, users logging in X times per month).
+    *   **Textual Representation (Histogram - Logins per Week):**
+        ```
+        User Login Frequency (per Week)
+        1-2 times:   [####_40%_####]
+        3-5 times:   [######_60%_######]
+        6-10 times:  [###_30%_###]
+        10+ times:   [#_10%_#]
+        (Shows percentage of users in each frequency bucket)
+        ```
+    *   **Interactive Elements:** Tooltip for exact user counts/percentages. Filter by user role (recruiter, hiring manager).
+
+**Section 5: Feedback & Sentiment Analysis**
+
+*   **Metric:** Common keywords or phrases in high/low scoring candidates
+    *   **Visualization:** Two Tag clouds (one for high-scoring, one for low-scoring candidates) or two tables listing top keywords/phrases with frequency.
+    *   **Textual Representation (Tag Clouds):**
+        ```
+        Keywords in High-Scoring Candidates:
+        LEADERSHIP  PROBLEM-SOLVER  COMMUNICATION  INNOVATIVE  PROACTIVE
+           TEAMWORK  RESULTS-DRIVEN  ADAPTIVE  STRATEGIC
+
+        Keywords in Low-Scoring Candidates:
+        UNCLEAR  HESITANT  LIMITED-EXPERIENCE  NERVOUS  BASIC
+           VAGUE  SLOW  INCONSISTENT  LACKS-DETAIL
+        ```
+    *   **Textual Representation (Tables):**
+        ```
+        High-Scoring Keywords:         | Low-Scoring Keywords:
+        | Keyword        | Frequency | | Keyword            | Frequency |
+        |----------------|-----------| |--------------------|-----------|
+        | "Leadership"   | 150       | | "Unclear"          | 120       |
+        | "Problem-solver"| 125       | | "Limited experience"| 110      |
+        | "Communication"| 110       | | "Hesitant"         | 95        |
+        ```
+    *   **Interactive Elements:** Tooltip on hover for exact frequency. Filters for specific job roles or interview types. Click on a keyword to see example snippets (if privacy allows).
+
+**Section 6: Health of the Platform**
+
+*   **Metric:** Are any employers consistently flagging AI results as inaccurate?
+    *   **Visualization:** Table or Bar chart.
+        *   Table: Employer Name | AI Feature Flagged | Number of Flags (L30D) | Flag Rate (%) | Last Flag Date.
+        *   Bar Chart: Employer Name on Y-axis, Number of Flags on X-axis.
+    *   **Textual Representation (Table):**
+        ```
+        AI Inaccuracy Flags by Employer (Last 30 Days)
+        | Employer          | AI Feature          | Flags | Flag Rate | Last Flag   |
+        |-------------------|---------------------|-------|-----------|-------------|
+        | Innovate Solutions| Transcription       | 15    | 5%        | 2023-10-28  |
+        | FutureWorks Ltd.  | Sentiment Analysis  | 10    | 3%        | 2023-10-25  |
+        | Global Corp       | Skill Detection     | 8     | 2%        | 2023-10-22  |
+        ```
+    *   **Textual Representation (Bar Chart):**
+        ```
+        AI Inaccuracy Flags (L30D)
+        Innovate Solutions: [#####_15_#####]
+        FutureWorks Ltd.:   [###_10_###]
+        Global Corp:        [##_8_##]
+        ```
+    *   **Interactive Elements:** Sortable table columns. Clickable employer name to drill down into specific flagged interviews/AI results. Filter by AI feature (if multiple are flaggable). Threshold alert for high flag rates.
+
+**Section 7: Value Being Delivered**
+
+*   **Metric:** How many interviews per employer → success (hire)?
+    *   **Visualization:** Scatter plot or a table.
+        *   Scatter Plot: X-axis: Number of Interviews Conducted. Y-axis: Number of Hires. Each dot represents an employer.
+        *   Table: Employer Name | Interviews Conducted | Hires | Interview-to-Hire Ratio.
+    *   **Textual Representation (Table):**
+        ```
+        Interview to Hire Ratio by Employer
+        | Employer          | Interviews | Hires | Ratio (Int/Hire) |
+        |-------------------|------------|-------|------------------|
+        | Alpha Inc.        | 50         | 5     | 10.0             |
+        | Beta Services     | 30         | 6     | 5.0              |
+        | Gamma LLC         | 100        | 4     | 25.0             |
+        ```
+    *   **Textual Representation (Conceptual Scatter Plot):**
+        ```
+        Interviews vs. Hires
+        Hires ^
+              |        o (Beta)
+              |  o (Alpha)
+              |
+              |             o (Gamma)
+              +-------------------------> Interviews Conducted
+        (o represents an employer)
+        ```
+    *   **Interactive Elements:** Tooltip on scatter plot points to show employer name and exact values. Sortable table columns. Filter by time period or department within employer.
+
+*   **Metric:** Average time saved per employer vs. traditional hiring.
+    *   **Visualization:** Bar chart or KPI cards. Requires baseline data for traditional hiring time.
+        *   Bar Chart: Employer on Y-axis, Time Saved (hours/days) on X-axis.
+        *   KPI Card: "Avg. Time Saved: X days" (overall or per employer).
+    *   **Textual Representation (Bar Chart):**
+        ```
+        Est. Time Saved per Hire (vs. Traditional)
+        Alpha Inc.:     [######_15 days_######]
+        Beta Services:  [########_20 days_########]
+        Gamma LLC:      [####_10 days_####]
+        (Assumes a baseline traditional hiring time)
+        ```
+    *   **Interactive Elements:** Tooltip for exact time saved and assumptions made. Filter by employer. Ability to input/adjust baseline traditional hiring time for comparison.
+
+*   **Metric:** ROI signals (usage vs. results).
+    *   **Visualization:** Quadrant chart (Bubble chart) or a composite score.
+        *   Quadrant: X-axis: Platform Usage Level (e.g., number of features used, frequency of login). Y-axis: Results Achieved (e.g., hires, time-to-hire reduction, candidate quality score). Bubble size could be number of users or investment.
+        *   Composite Score: A single score per employer indicating ROI, shown in a table.
+    *   **Textual Representation (Conceptual Quadrant Chart):**
+        ```
+        Platform ROI Signals (Usage vs. Results)
+
+        High Results ^
+                     |   .   o (High Usage, High Results)
+                     |       .
+           (Low Usage|.........o.......................
+            High Results)  .  (High Usage, Low Results)
+                     |       .
+          Low Results+--------------------------------> High Usage
+        (o = Employer, . = Other Employers)
+        ```
+    *   **Interactive Elements:** Tooltip on bubbles/points to show employer name and specific metrics. Filters by employer size or industry. Drill down to see factors contributing to ROI score.
+
+**Section 8: Employer-wise Trends**
+
+*   **Metric:** Employers with rising or falling candidate quality.
+    *   **Visualization:** Line charts (one per employer or top/bottom N employers) or a table with trend indicators. X-axis: Time (Week/Month). Y-axis: Average Candidate Score (from AI/manual scoring).
+    *   **Textual Representation (Table with Trend):**
+        ```
+        Candidate Quality Trend (Avg. Score)
+        | Employer          | Current Avg Score | Trend (Last 3M) | Change |
+        |-------------------|-------------------|-----------------|--------|
+        | Bright Future Inc | 85/100            |  /\ (Rising)    | +5 pts |
+        | Old Guard Co.     | 70/100            |  \/ (Falling)   | -8 pts |
+        | Steady Performers | 78/100            |  -> (Stable)    | +1 pt  |
+        ```
+    *   **Interactive Elements:** Click on employer to see detailed score distribution or specific interview trends. Filter by job role. Time period selection for trend calculation.
+
+*   **Metric:** Sudden spikes in rejection reasons, or complaint rates.
+    *   **Visualization:** Line charts for specific rejection reasons/complaint types over time, or an alert system highlighting recent spikes.
+        *   Line Chart: X-axis: Time (Day/Week). Y-axis: Count of specific rejection reason/complaint.
+    *   **Textual Representation (Line Chart for a specific rejection reason):**
+        ```
+        Rejection Reason: "Lack of Technical Skills" (Employer X)
+        Count ^
+              |         /\
+              |        /  \
+              |   ----/    \
+              |  /
+              +---------------> Time (Week)
+        ```
+    *   **Textual Representation (Alert List):**
+        ```
+        Recent Spikes (Last 7 Days):
+        * Employer Y: Rejection "Salary Expectation" +150% WoW
+        * Employer Z: Complaint Rate +50% WoW
+        ```
+    *   **Interactive Elements:** Drill down from alert to specific employer and affected candidates/interviews. Filter by employer. Tooltip on line chart for exact counts.
+
+*   **Metric:** Are some employers not using scoring, or not reviewing results?
+    *   **Visualization:** Table listing employers with low engagement in scoring/reviewing.
+    *   **Textual Representation (Table):**
+        ```
+        Scoring/Review Engagement (Last 30 Days)
+        | Employer          | Interviews Conducted | % Scored | % Results Reviewed | Last Review Date |
+        |-------------------|----------------------|----------|--------------------|------------------|
+        | Active Users Inc. | 50                   | 95%      | 90%                | 2023-10-29       |
+        | LowEngage Corp    | 20                   | 10%      | 5%                 | 2023-09-15       |
+        | NoScore Ltd.      | 30                   | 0%       | 0%                 | N/A              |
+        ```
+    *   **Interactive Elements:** Sortable columns. Filter by number of interviews conducted to focus on active but unengaged employers. Direct link to prompt engagement (e.g., send reminder email - admin feature).
+
+**Section 9: Feature Usage**
+
+*   **Metric:** Who is actually using deep interview scoring, video analytics, AI recommendations, etc.?
+    *   **Visualization:** Table or stacked bar chart per feature.
+        *   Table: Feature | Employer | Usage Count/Frequency | Last Used Date.
+        *   Stacked Bar Chart: For a given feature, show segments of employers by usage level (e.g., High, Medium, Low, None).
+    *   **Textual Representation (Table for "Deep Interview Scoring"):**
+        ```
+        Usage: Deep Interview Scoring (Last 30 Days)
+        | Employer          | Usage Count | Avg. Score Depth | Last Used   |
+        |-------------------|-------------|------------------|-------------|
+        | DetailOrient Inc. | 45          | 8/10 criteria    | 2023-10-28  |
+        | QuickLook Co.     | 15          | 3/10 criteria    | 2023-10-20  |
+        | Analytics Corp    | 60          | 9/10 criteria    | 2023-10-29  |
+        ```
+    *   **Interactive Elements:** Filter by feature. Sort by usage count or last used date. Click on employer to see their specific usage patterns.
+
+*   **Metric:** Which features are underused — maybe we can retire or improve them.
+    *   **Visualization:** Bar chart showing percentage of active employers NOT using a feature, or a list of least used features.
+    *   **Textual Representation (Bar Chart - % Not Using):**
+        ```
+        Features by Non-Usage Rate (among Active Employers)
+        Feature A (New):  [##_20%_##] (i.e. 80% are not using)
+        Feature B (Old):  [#####_50%_#####]
+        Feature C (Core): [#_5%_#]
+        Feature D (Niche):[########_80%_########]
+        ```
+    *   **Textual Representation (List - Least Used):**
+        ```
+        Least Used Features (by % of Active Employers using it):
+        1. Advanced Reporting Module (5% users)
+        2. Candidate Pool Segmentation (8% users)
+        3. External Calendar Sync (12% users)
+        ```
+    *   **Interactive Elements:** Tooltip showing exact number of employers using/not using. Filter by employer size or signup date (newer employers might not have discovered all features).
+
+**Section 10: System Stability & Risk**
+
+*   **Metric:** Are any employers facing consistent system issues?
+    *   **Visualization:** Table listing employers with high error rates, reported issues, or negative system feedback.
+    *   **Textual Representation (Table):**
+        ```
+        Employers with Potential System Issues (Last 30 Days)
+        | Employer          | Error Rate (Client-Side) | Reported Issues | Avg. Load Time | Ticket Severity (Avg) |
+        |-------------------|--------------------------|-----------------|----------------|-----------------------|
+        | Glitchy Systems Ltd| 5%                       | 12              | 3.5s           | High                  |
+        | SlowLoad Inc.     | 1%                       | 3               | 5.2s           | Medium                |
+        | Stable Ops        | <0.5%                    | 1               | 1.5s           | Low                   |
+        ```
+    *   **Interactive Elements:** Sortable columns. Click on employer name to view detailed error logs, support tickets, or performance metrics for that employer. Threshold highlighting for concerning metrics. Filter by type of issue.
+```

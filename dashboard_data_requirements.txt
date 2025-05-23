@@ -1,0 +1,449 @@
+**Section 1: Engagement Metrics**
+
+*   **Metric Name:** Number of interviews started/completed per day/week/month
+    *   **Data Points Needed:**
+        *   `interview_id` (unique identifier for each interview)
+        *   `status` (e.g., 'started', 'completed', 'invited', 'scheduled')
+        *   `timestamp_event` (datetime for the event, e.g., when status changed to 'started' or 'completed')
+        *   `employer_id` (identifier for the employer associated with the interview)
+        *   `job_id` (identifier for the job associated with the interview)
+    *   **Potential Data Source(s):**
+        *   `interviews` table (columns: `id`, `status`, `created_at`, `started_at`, `completed_at`, `employer_id`, `job_id`)
+        *   `interview_status_log` table (columns: `interview_id`, `status`, `timestamp`)
+    *   **Granularity/Filters:**
+        *   Day, Week, Month
+        *   Filter by `status` ('started', 'completed')
+        *   Filter by `employer_id`, `job_id` (optional, for drill-downs)
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT interview_id)`
+        *   `GROUP BY` time period (day, week, month), `status`
+
+*   **Metric Name:** Average time taken per interview
+    *   **Data Points Needed:**
+        *   `interview_id`
+        *   `timestamp_started`
+        *   `timestamp_completed`
+        *   `employer_id`
+        *   `job_id`
+    *   **Potential Data Source(s):**
+        *   `interviews` table (columns: `id`, `started_at`, `completed_at`, `employer_id`, `job_id`)
+    *   **Granularity/Filters:**
+        *   Day, Week, Month (based on `timestamp_completed`)
+        *   Filter by `employer_id`, `job_id` (optional)
+    *   **Aggregations:**
+        *   `AVG(timestamp_completed - timestamp_started)` (calculated duration)
+        *   `GROUP BY` time period (day, week, month)
+
+*   **Metric Name:** Peak hours/days for activity
+    *   **Data Points Needed:**
+        *   `activity_id` (unique identifier for an activity event)
+        *   `user_id` (identifier for the user performing the activity)
+        *   `activity_type` (e.g., 'interview_started', 'interview_completed', 'login', 'note_added')
+        *   `timestamp_activity` (datetime of the activity)
+    *   **Potential Data Source(s):**
+        *   `user_activity_logs` table (columns: `id`, `user_id`, `action_type`, `timestamp`)
+        *   `interviews` table (for interview specific activity like `started_at`, `completed_at`)
+    *   **Granularity/Filters:**
+        *   Hour of the day, Day of the week
+        *   Filter by `activity_type` (to focus on specific activities if needed)
+    *   **Aggregations:**
+        *   `COUNT(activity_id)` or `COUNT(DISTINCT user_id)` depending on definition of "activity"
+        *   `GROUP BY` hour_of_day, day_of_week
+
+*   **Metric Name:** Interview abandonment/drop-off rate
+    *   **Data Points Needed:**
+        *   `interview_id`
+        *   `status` (e.g., 'invited', 'started', 'completed', 'abandoned_pre_start', 'abandoned_mid_interview')
+        *   `timestamp_invited`
+        *   `timestamp_started`
+        *   `timestamp_last_activity` (if abandoned mid-interview)
+    *   **Potential Data Source(s):**
+        *   `interviews` table (columns: `id`, `status`, `invited_at`, `started_at`)
+        *   `interview_funnel_log` or `candidate_stages` table
+    *   **Granularity/Filters:**
+        *   Day, Week, Month (based on when the interview was scheduled or supposed to start)
+    *   **Aggregations:**
+        *   `COUNT(interview_id)` for interviews that reached 'invited' or 'started' stage.
+        *   `COUNT(interview_id)` for interviews marked as 'abandoned' or that started but did not complete.
+        *   Calculation: (Abandoned Interviews / Total Relevant Interviews) * 100
+        *   `GROUP BY` time period
+
+*   **Metric Name:** Device/browser/platform usage stats
+    *   **Data Points Needed:**
+        *   `session_id` or `event_id`
+        *   `user_id`
+        *   `device_type` (e.g., 'desktop', 'mobile', 'tablet')
+        *   `browser_name` (e.g., 'Chrome', 'Safari', 'Firefox')
+        *   `operating_system` (e.g., 'Windows', 'macOS', 'iOS', 'Android')
+        *   `timestamp_event`
+    *   **Potential Data Source(s):**
+        *   `user_sessions` table (columns: `id`, `user_id`, `device_info`, `browser_info`, `os_info`, `created_at`)
+        *   `frontend_event_logs` or analytics platform data
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 days, Last Week)
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT user_id)` or `COUNT(session_id)` for each category
+        *   `GROUP BY` `device_type`, `browser_name`, `operating_system`
+
+**Section 2: Candidate Overview**
+
+*   **Metric Name:** Show how candidates progress through each interview stage: Invited → Started → Completed → Shortlisted → Selected
+    *   **Data Points Needed:**
+        *   `candidate_id`
+        *   `interview_id` (can be multiple per candidate, or one overall application process)
+        *   `stage_name` (e.g., 'Invited', 'Started', 'Completed', 'Assessment_Taken', 'Shortlisted', 'Offer_Extended', 'Hired', 'Rejected')
+        *   `timestamp_stage_entry` (when the candidate entered this stage)
+        *   `job_id`
+        *   `employer_id`
+    *   **Potential Data Source(s):**
+        *   `candidate_stages` table or `application_funnel` table (columns: `candidate_id`, `job_id`, `stage`, `timestamp`, `interview_id`)
+        *   `interviews` table (for interview-specific stages like 'Started', 'Completed')
+    *   **Granularity/Filters:**
+        *   Overall, or by time period (e.g., candidates entering funnel in Last X Days)
+        *   Filter by `job_id`, `department`, `employer_id`
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT candidate_id)` for each stage
+        *   `GROUP BY` `stage_name` (ordered by funnel sequence)
+
+*   **Metric Name:** Drop-off percentages at each stage
+    *   **Data Points Needed:** (Same as "Candidate progress through each interview stage")
+        *   `candidate_id`
+        *   `stage_name`
+        *   `timestamp_stage_entry`
+        *   `job_id`
+    *   **Potential Data Source(s):** (Same as "Candidate progress through each interview stage")
+        *   `candidate_stages` table or `application_funnel` table
+    *   **Granularity/Filters:** (Same as "Candidate progress through each interview stage")
+        *   Overall, or by time period
+        *   Filter by `job_id`
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT candidate_id)` for each stage (`N_current_stage`)
+        *   `COUNT(DISTINCT candidate_id)` for the previous stage (`N_previous_stage`)
+        *   Calculation: `((N_previous_stage - N_current_stage) / N_previous_stage) * 100` for each stage transition.
+        *   `GROUP BY` `stage_name`
+
+**Section 3: Candidate Demographics**
+
+*   **Metric Name:** Location heatmap
+    *   **Data Points Needed:**
+        *   `candidate_id`
+        *   `location_city`
+        *   `location_region_state`
+        *   `location_country`
+        *   `location_zipcode` (optional, for finer granularity)
+        *   `latitude` (derived)
+        *   `longitude` (derived)
+        *   `timestamp_profile_created` or `timestamp_application`
+    *   **Potential Data Source(s):**
+        *   `candidates` table (columns: `id`, `city`, `state`, `country`, `zipcode`, `created_at`)
+        *   Geocoding service to convert addresses to lat/long if not stored.
+    *   **Granularity/Filters:**
+        *   Overall, or filter by time period (e.g., candidates active in Last X Months)
+        *   Filter by `job_role` (requires linking candidates to applications/roles)
+        *   Filter by `interview_status` (requires linking candidates to interview stages)
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT candidate_id)`
+        *   `GROUP BY` `location_city`, `location_region_state`, `location_country` (or geohash/tile for heatmap)
+
+**Section 4: Platform Usage Metrics**
+
+*   **Metric Name:** Most active recruiters
+    *   **Data Points Needed:**
+        *   `recruiter_id` (or `user_id` with role 'recruiter')
+        *   `recruiter_name`
+        *   `event_type` (e.g., 'interview_created', 'candidate_processed', 'login', 'feedback_submitted')
+        *   `event_timestamp`
+        *   `interview_id` (for interview-related events)
+        *   `candidate_id` (for candidate-related events)
+    *   **Potential Data Source(s):**
+        *   `user_activity_logs` table (columns: `user_id`, `action_type`, `timestamp`, `details_json`)
+        *   `interviews` table (column: `created_by_recruiter_id`)
+        *   `users` table (to get `recruiter_name` and role)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 Days, Last Week)
+        *   Filter by `event_type` to define "activity" (e.g., count of interviews created, candidates processed, logins)
+    *   **Aggregations:**
+        *   `COUNT(event_type)` or `COUNT(DISTINCT interview_id)` or `COUNT(DISTINCT candidate_id)`
+        *   `GROUP BY` `recruiter_id`, `recruiter_name`
+        *   `ORDER BY` count DESC
+
+*   **Metric Name:** Most used features, type of interviews or type of questions use in an interview
+    *   **Data Points Needed:**
+        *   `event_id`
+        *   `user_id` (recruiter/interviewer)
+        *   `feature_name` (e.g., 'ai_scoring', 'video_analytics', 'template_library', 'live_coding_env')
+        *   `interview_id`
+        *   `interview_type` (e.g., 'behavioral', 'technical', 'situational', 'panel')
+        *   `question_id`
+        *   `question_type` (e.g., 'open-ended', 'multiple_choice', 'coding_challenge', 'case_study')
+        *   `timestamp_event`
+    *   **Potential Data Source(s):**
+        *   `feature_usage_logs` table (columns: `user_id`, `feature_name`, `timestamp`, `details_json`)
+        *   `interviews` table (columns: `id`, `interview_type`, `created_by_user_id`)
+        *   `interview_questions` table (linking `interview_id` to `question_id`)
+        *   `questions` table (columns: `id`, `question_type`, `text`)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 days)
+        *   Filter by `recruiter_id`, `department` (optional)
+    *   **Aggregations:**
+        *   `COUNT(event_id)` or `COUNT(DISTINCT user_id)` for feature usage
+        *   `COUNT(interview_id)` for interview types
+        *   `COUNT(question_id)` for question types
+        *   `GROUP BY` `feature_name`, `interview_type`, `question_type`
+
+*   **Metric Name:** Frequency of platform use
+    *   **Data Points Needed:**
+        *   `user_id`
+        *   `login_timestamp` or `activity_timestamp`
+        *   `user_role` (e.g. 'recruiter', 'hiring_manager')
+    *   **Potential Data Source(s):**
+        *   `user_logins` table (columns: `user_id`, `timestamp`)
+        *   `user_activity_logs` table (columns: `user_id`, `timestamp`)
+        *   `users` table (for `user_role`)
+    *   **Granularity/Filters:**
+        *   Per week, per month
+        *   Filter by `user_role`
+    *   **Aggregations:**
+        *   `COUNT(login_timestamp)` or `COUNT(DISTINCT DATE(activity_timestamp))` per user over the period
+        *   Then, `COUNT(user_id)` `GROUP BY` the calculated frequency bucket (e.g., 1-2 times/week, 3-5 times/week)
+
+**Section 5: Feedback & Sentiment Analysis**
+
+*   **Metric Name:** Common keywords or phrases in high/low scoring candidates
+    *   **Data Points Needed:**
+        *   `candidate_id`
+        *   `interview_id`
+        *   `interview_score` (numerical or categorical like 'high', 'low')
+        *   `interview_transcript` (text data)
+        *   `feedback_notes` (text data from reviewers)
+        *   `ai_analysis_keywords` (if AI extracts keywords)
+    *   **Potential Data Source(s):**
+        *   `interview_transcripts` table (columns: `interview_id`, `full_text`)
+        *   `interview_feedback` table (columns: `interview_id`, `reviewer_id`, `score`, `notes_text`)
+        *   `ai_analysis_results` table (columns: `interview_id`, `extracted_keywords_json`, `sentiment_score`)
+        *   `candidates` table (to link to overall scores if available)
+    *   **Granularity/Filters:**
+        *   Filter by `interview_score` category (e.g., top 10% vs bottom 10%, or specific score ranges)
+        *   Filter by `job_role`
+    *   **Aggregations:**
+        *   Text processing (NLP) to extract N-grams (keywords/phrases) from transcripts/notes.
+        *   `COUNT(keyword_occurrence)`
+        *   `GROUP BY` keyword
+        *   Separate aggregations for high-scoring and low-scoring candidates.
+
+**Section 6: Health of the Platform**
+
+*   **Metric Name:** Are any employers consistently flagging AI results as inaccurate?
+    *   **Data Points Needed:**
+        *   `flag_id` (unique ID for each flag event)
+        *   `employer_id`
+        *   `user_id` (who flagged)
+        *   `interview_id` (related interview)
+        *   `ai_feature_flagged` (e.g., 'transcription', 'sentiment_analysis', 'skill_detection')
+        *   `timestamp_flagged`
+        *   `reason_for_flag` (optional, text)
+        *   `total_ai_results_processed_for_employer` (for calculating rate)
+    *   **Potential Data Source(s):**
+        *   `ai_feedback_flags` table (columns: `id`, `employer_id`, `user_id`, `interview_id`, `feature_name`, `timestamp`, `reason`)
+        *   `ai_usage_logs` table (to get total processed items for rate calculation)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 Days, Last 90 Days)
+        *   Filter by `ai_feature_flagged`
+    *   **Aggregations:**
+        *   `COUNT(flag_id)`
+        *   Calculation: `(COUNT(flag_id) / total_ai_results_processed_for_employer) * 100` for flag rate.
+        *   `GROUP BY` `employer_id`, `ai_feature_flagged`
+
+**Section 7: Value Being Delivered**
+
+*   **Metric Name:** How many interviews per employer → success (hire)?
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   `interview_id`
+        *   `candidate_id`
+        *   `interview_outcome` (e.g. 'progressed', 'rejected')
+        *   `candidate_final_status` (e.g. 'hired', 'not_hired') for a specific job/application
+        *   `job_id`
+    *   **Potential Data Source(s):**
+        *   `interviews` table (columns: `id`, `employer_id`, `candidate_id`, `job_id`)
+        *   `applications` or `candidate_stages` table (columns: `candidate_id`, `job_id`, `status` which includes 'hired')
+    *   **Granularity/Filters:**
+        *   Time period for hires (e.g., hires in Last Quarter)
+        *   Filter by `department` within employer (optional)
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT interview_id)` per employer for relevant period.
+        *   `COUNT(DISTINCT candidate_id WHERE candidate_final_status = 'hired')` per employer for relevant period.
+        *   Calculation: Interviews per Hire = (Total Interviews / Total Hires)
+        *   `GROUP BY` `employer_id`
+
+*   **Metric Name:** Average time saved per employer vs. traditional hiring.
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   `job_id`
+        *   `hire_date`
+        *   `application_start_date` (or `job_posting_date`)
+        *   `platform_time_to_hire_days` (calculated: `hire_date - application_start_date`)
+        *   `employer_traditional_time_to_hire_days` (this is an external data point, might be an assumption or input by employer)
+    *   **Potential Data Source(s):**
+        *   `hires` table or `applications` table with status 'hired' (columns: `job_id`, `candidate_id`, `hire_date`, `application_date`)
+        *   `employers` table (could store `traditional_time_to_hire_benchmark`)
+        *   A system to input/manage benchmark data.
+    *   **Granularity/Filters:**
+        *   Per hire, then averaged per employer over a time period.
+    *   **Aggregations:**
+        *   `AVG(employer_traditional_time_to_hire_days - platform_time_to_hire_days)`
+        *   `GROUP BY` `employer_id`
+
+*   **Metric Name:** ROI signals (usage vs. results).
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   Platform Usage Metrics:
+            *   `count_active_users`
+            *   `count_features_used`
+            *   `frequency_of_login_per_user` (average)
+            *   `number_of_interviews_conducted`
+        *   Results Metrics:
+            *   `number_of_hires`
+            *   `avg_time_to_hire_reduction_percentage` (compared to benchmark or previous period)
+            *   `avg_candidate_quality_score_for_hires`
+        *   `employer_investment_level` (optional, for bubble size - could be subscription tier)
+    *   **Potential Data Source(s):**
+        *   Aggregated data from other metrics (e.g., user activity, interview stats, hire stats).
+        *   `subscriptions` or `employers` table for investment level.
+    *   **Granularity/Filters:**
+        *   Per employer, over a defined period (e.g., Last Quarter, Last Year).
+        *   Filter by `employer_size` or `industry`.
+    *   **Aggregations:**
+        *   Multiple aggregated metrics combined into a composite score or plotted on a 2D/3D chart.
+        *   `GROUP BY` `employer_id`.
+
+**Section 8: Employer-wise Trends**
+
+*   **Metric Name:** Employers with rising or falling candidate quality.
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   `interview_id`
+        *   `candidate_id`
+        *   `candidate_score` (AI score, manual score, or combined)
+        *   `timestamp_score_recorded` (or `interview_date`)
+        *   `job_role` (optional filter)
+    *   **Potential Data Source(s):**
+        *   `interview_scores` table (columns: `interview_id`, `candidate_id`, `employer_id`, `score`, `score_date`, `job_role_id`)
+        *   `ai_analysis_results` table
+        *   `feedback` table
+    *   **Granularity/Filters:**
+        *   Week, Month
+        *   Filter by `job_role`
+    *   **Aggregations:**
+        *   `AVG(candidate_score)`
+        *   `GROUP BY` `employer_id`, time period (week/month)
+        *   Trend analysis (e.g., comparing avg score of current period vs. previous period, or slope of avg scores over time).
+
+*   **Metric Name:** Sudden spikes in rejection reasons, or complaint rates.
+    *   **Data Points Needed:**
+        *   `rejection_id` or `complaint_id`
+        *   `employer_id`
+        *   `candidate_id`
+        *   `interview_id`
+        *   `rejection_reason_category` (e.g., 'salary_expectation', 'technical_skills', 'culture_fit')
+        *   `complaint_type`
+        *   `timestamp_event`
+    *   **Potential Data Source(s):**
+        *   `rejection_logs` table (columns: `id`, `interview_id`, `employer_id`, `reason_category`, `timestamp`)
+        *   `complaints` or `support_tickets` table (columns: `id`, `employer_id`, `type`, `timestamp`)
+    *   **Granularity/Filters:**
+        *   Day, Week
+        *   Filter by `employer_id` (for employer-specific view) or overall.
+    *   **Aggregations:**
+        *   `COUNT(rejection_id)` or `COUNT(complaint_id)`
+        *   `GROUP BY` `rejection_reason_category` (or `complaint_type`), `employer_id` (optional), time period
+        *   Spike detection: Compare current period count to previous period count or a moving average.
+
+*   **Metric Name:** Are some employers not using scoring, or not reviewing results?
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   `interview_id`
+        *   `is_scored` (boolean, indicates if a score was submitted)
+        *   `score_value` (null or not null)
+        *   `is_reviewed` (boolean, indicates if results/report were viewed by employer)
+        *   `last_review_timestamp`
+        *   `interview_completion_timestamp`
+    *   **Potential Data Source(s):**
+        *   `interviews` table (columns: `id`, `employer_id`, `completed_at`)
+        *   `interview_scores` table (to check if scores exist for an interview)
+        *   `activity_logs` or `interview_views` table (to track if an employer user viewed the results of an interview: `user_id`, `interview_id`, `action='view_report'`, `timestamp`)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., interviews completed in Last 30 Days)
+    *   **Aggregations:**
+        *   `COUNT(interview_id)` (total completed interviews for an employer)
+        *   `COUNT(interview_id WHERE is_scored = TRUE)`
+        *   `COUNT(interview_id WHERE is_reviewed = TRUE)`
+        *   Percentage calculations: (% Scored, % Reviewed)
+        *   `MAX(last_review_timestamp)`
+        *   `GROUP BY` `employer_id`
+
+**Section 9: Feature Usage**
+
+*   **Metric Name:** Who is actually using deep interview scoring, video analytics, AI recommendations, etc.?
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   `user_id` (who used the feature)
+        *   `feature_name` (specific e.g., 'deep_interview_scoring', 'video_analytics_emotion_tracking', 'ai_candidate_recommendation_for_job_X')
+        *   `usage_count` (how many times used, if applicable)
+        *   `last_used_timestamp`
+        *   `details_of_usage` (e.g. for 'deep_interview_scoring', what was the average depth/criteria used)
+    *   **Potential Data Source(s):**
+        *   `feature_usage_logs` table (columns: `id`, `user_id`, `employer_id`, `feature_name`, `timestamp`, `usage_details_json`)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 Days)
+        *   Filter by `feature_name`
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT user_id)` or `SUM(usage_count)`
+        *   `MAX(last_used_timestamp)`
+        *   `AVG(detail_metric)` from `usage_details_json` (e.g. avg score depth)
+        *   `GROUP BY` `employer_id`, `feature_name` (if viewing across multiple features), `user_id` (for user-level detail)
+
+*   **Metric Name:** Which features are underused — maybe we can retire or improve them.
+    *   **Data Points Needed:**
+        *   `feature_name`
+        *   `active_employer_ids_using_feature` (list of unique employer IDs that used the feature in a period)
+        *   `total_active_employer_ids` (list of all active employer IDs in the same period)
+    *   **Potential Data Source(s):**
+        *   `feature_usage_logs` table (to get users/employers per feature)
+        *   `employer_activity` table or `user_logins` (to determine "active" employers)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 Days, Last 90 Days)
+        *   Filter by `employer_size`, `employer_signup_date` (optional, for context)
+    *   **Aggregations:**
+        *   `COUNT(DISTINCT employer_id)` for each feature.
+        *   Calculation: `(COUNT(DISTINCT employer_id_using_feature) / total_active_employers) * 100` for usage percentage.
+        *   Or, `( (total_active_employers - COUNT(DISTINCT employer_id_using_feature)) / total_active_employers) * 100` for non-usage rate.
+        *   `GROUP BY` `feature_name`
+        *   `ORDER BY` usage_percentage ASC (for least used)
+
+**Section 10: System Stability & Risk**
+
+*   **Metric Name:** Are any employers facing consistent system issues?
+    *   **Data Points Needed:**
+        *   `employer_id`
+        *   `error_event_id`
+        *   `error_type` (e.g., 'client_side_js_error', 'api_error_5xx', 'page_load_timeout')
+        *   `timestamp_error`
+        *   `reported_issue_id` (from support system)
+        *   `issue_severity`
+        *   `page_load_time_ms`
+        *   `user_id` experiencing issue
+    *   **Potential Data Source(s):**
+        *   `frontend_error_logs` table (columns: `id`, `user_id`, `employer_id`, `error_message`, `stack_trace`, `timestamp`)
+        *   `backend_error_logs` or APM system (Application Performance Monitoring)
+        *   `support_tickets` table (columns: `id`, `user_id`, `employer_id`, `severity`, `status`, `created_at`)
+        *   `page_view_logs` or analytics (for page load times: `user_id`, `employer_id`, `url`, `load_time_ms`, `timestamp`)
+    *   **Granularity/Filters:**
+        *   Time period (e.g., Last 30 Days)
+        *   Filter by `error_type`, `issue_severity`
+    *   **Aggregations:**
+        *   `COUNT(error_event_id)` for error rate (can be normalized by activity or users).
+        *   `COUNT(reported_issue_id)`
+        *   `AVG(page_load_time_ms)`
+        *   `AVG(issue_severity)` (if severity can be numerically represented)
+        *   `GROUP BY` `employer_id`
